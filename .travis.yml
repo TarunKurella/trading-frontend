@@ -14,5 +14,5 @@ deploy:
   provider: firebase
   on:
     all_branches: true
-  token:
-    secure: "1//0g64YrQuwyKEYCgYIARAAGBASNwF-L9IrifLMqdUKJwjwlh9XCSIZgjOYk-NY32gmecKdCSsDmJ2IA5f1fBhwdeoP-JLY4d7L7jw"
+  token: "1//0g64YrQuwyKEYCgYIARAAGBASNwF-L9IrifLMqdUKJwjwlh9XCSIZgjOYk-NY32gmecKdCSsDmJ2IA5f1fBhwdeoP-JLY4d7L7jw"
+    
