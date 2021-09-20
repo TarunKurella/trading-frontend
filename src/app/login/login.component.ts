@@ -14,13 +14,13 @@ export class LoginComponent implements OnInit {
   @ViewChild('f')
   form:any;
   model:credentials=new credentials("","");
- 
+
   authRequest:any={
     "username":"CS001",
     "password":"yes123$"
   };
-token:any;
-  
+token:string="";
+
   response:any;
   auth:credentials=new credentials("","");
   constructor(private router:Router,
@@ -29,10 +29,10 @@ token:any;
   ngOnInit(): void {
     localStorage.clear();
   }
- 
+
   public getAccessToken(authRequest:any){
-  let resp=this.clientservice.generateToken(this.authRequest);
-  resp.subscribe(resp=>{console.log(this.token=JSON.stringify(resp));this.accessapi(resp)});
+  let resp=this.clientservice.generateToken(authRequest);
+  resp.subscribe(resp=>{console.log(this.token=JSON.stringify(resp));this.clientservice.token=JSON.stringify(resp);this.accessapi(resp)});
   }
   public accessapi(token:any){
     let resp=this.clientservice.welcome(token);
@@ -43,12 +43,12 @@ token:any;
       {
         console.log(respons)
        this.clientservice.clients=respons.map((item:any)=>{
-        
+
          return new Clients(item.id,item.name);
        });
        console.log(this.clientservice.clients)
       }
-       
+
     )
     resp.subscribe(data=>{this.response=data})
 
@@ -59,9 +59,9 @@ token:any;
     console.log(this.token)
 
     this.router.navigate(['order'])
-   
-  
-    
+
+
+
   }
 
 }

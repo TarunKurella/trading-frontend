@@ -1,3 +1,3 @@
 export class credentials{
-    constructor(public username:String,public password:String){}
+    constructor(public username:string,public password:string){}
 }

@@ -7,6 +7,8 @@ import { transaction } from '../transaction';
 import {map} from 'rxjs/operators'
 import { Custodian } from '../Custodian';
 import { Clients } from '../Clients';
+import { provideRoutes } from '@angular/router';
+import { POrder } from '../POrder';
 
 @Component({
   selector: 'app-order',
@@ -22,8 +24,9 @@ export class OrderComponent implements OnInit {
   instrument:Instruments=new Instruments();
   Model:transaction=new transaction("","","","",0,0,0,"");
    c:String="";
+   order:POrder=new POrder();
   constructor(private clientService:ClientSecurityService) {
-   
+
 
    }
 
@@ -35,7 +38,7 @@ export class OrderComponent implements OnInit {
 
   })
 }
-  getClient(token:String,id:any){
+  getClient(token:String,id:string){
     this.clientService.getClient(token,id).subscribe(response=>{
       this.client= new Client(response.id,response.name,response.cust_id,response.transaction_limit);
 
@@ -48,10 +51,10 @@ export class OrderComponent implements OnInit {
          return new Clients(item.id,item.name);
        });
       }
-       
+
     )
   }
-  
+
   getInstuments(){
     this.clientService.getInstruments().subscribe(
       response=>{
@@ -59,27 +62,34 @@ export class OrderComponent implements OnInit {
         this.instruments=response.map(item=>{
          return  new Instruments(item.id,item.name,item.faceValue,item.expiryDate);
         })
-         
+
       }}
     );
   }
   oninput(event:any){
+    console.log("value is"+this.form.value.Client_id);
    this.getClient(this.clientService.token,event.target.value);
 
   }
   oncl(){
     this.clients=this.clientService.clients;
+    this.getInstuments();
   }
   oninputinst(event:any){
    this.getInstrument(event.target.value);
 
   }
   onevent(event:any){
-  
+ if(event.target.value=="Buy"){
+  console.log("value is"+"BUY");
+ }
   }
 
 
 onorder(){
+
+  this.order=new POrder(this.form.value.Client_id,this.form.value.Instrument_id,this.form.value.Price,this.form.value.Quantity,this.form.value.Direction)
+  this.clientService.insertOrder(this.order).subscribe(value=>alert(value));
 
 }
 }

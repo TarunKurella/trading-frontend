@@ -6,89 +6,89 @@
     <div class="row">
         <div class="col-md-4 login-sec">
             <h2 class="text-center">Place Order</h2>
-            
-            <form class="form" #f='ngForm'>
+
+            <form class="form" #f='ngForm' >
                 <table>
                   <tr><td><button (click)="oncl()">Start</button></td></tr>
               <tr>
-        
+
         <td>
         <label>ClientId</label>
       </td>
       <td>
-          <select [(ngModel)]='Model.Client_id' (input)="oninput($event)"name='Client_id'#client_id='ngModel'>
-            <option *ngFor="let l of clients" [value]="l">{{l.id}}</option>
+          <select [(ngModel)]='Model.Client_id' (change)="oninput($event)"name='Client_id'#client_id='ngModel'>
+            <option *ngFor="let l of clients" [value]="l.id">{{l.id}}</option>
           </select>
         </td>
-       
-      </tr> 
+
+      </tr>
       <tr>
-       
+
          <td ><label>ClientName</label></td>
-          <td>  <input type="text" [(ngModel)]='Model.Client_name' name='Client_Name'#client_name='ngModel' disabled>
+          <td>  <input type="text" [(ngModel)]='Model.Client_name' name='Client_Name'#client_name='ngModel' value={{client.name}} disabled>
           </td>
-         
-      </tr> 
+
+      </tr>
       <tr>
-          
+
            <td> <label>InstrumentId</label></td>
-            <td>  <select [(ngModel)]='Model.Instrument_id' (input)="oninputinst($event)" name='Instrument_id'#instrument_id='ngModel'>
-                <option *ngFor="let l1 of instruments" [value]="l1">{{l1.id}}&nbsp;&nbsp;{{l1.name}}</option>
+            <td>  <select [(ngModel)]='Model.Instrument_id' (change)="oninputinst($event)" name='Instrument_id'#instrument_id='ngModel'>
+                <option *ngFor="let l1 of instruments" [value]="l1.id">{{l1.id}}&nbsp;&nbsp;{{l1.name}}</option>
               </select></td>
-            
-          </tr> 
-          <tr> 
-            
-            <td> <label>InstrumentName</label></td> 
+
+          </tr>
+          <tr>
+
+            <td> <label>InstrumentName</label></td>
                <td> <input type="text" disabled [(ngModel)]='Model.Instrument_name' value={{instrument.name}} name='Instrument_Name'#instrument_name='ngModel' disabled>
               </td>
-             
+
             </tr>
             <tr>
-              
+
                <td> <label>FaceValue</label></td>
                <td>  <input type="text" disabled [(ngModel)]='Model.faceValue'value={{instrument.faceValue}} name='faceValue'#facevalue='ngModel'>
-               </td>   
-               
+               </td>
+
               </tr>
               <tr>
-                
+
                 <td>  <label>ExpiryDate</label></td>
                  <td>   <input type="text"  name='expiryDate' value={{instrument.expiryDate}} disabled></td>
-                    
-                 
-                </tr> 
+
+
+                </tr>
                 <tr>
-                 
+
                   <td>  <label>Price</label></td>
                   <td>    <input type="text"[(ngModel)]='Model.Price' name='Price'#price='ngModel'>
                   </td>
-                   
+
                   </tr>
                   <tr>
-                    
+
                     <td>  <label>Quantity</label></td>
                      <td>   <input type="text"[(ngModel)]='Model.Quantity' name='Quantity'#quantity='ngModel'  >
                      </td>
-                     
+
                     </tr>
                     <tr>
-                    
+
                        <td> <label>Direction</label></td>
                          <td> <select [(ngModel)]='Model.Direction' (change)="onevent($event)" name='Direction'#direction='ngModel'>
                             <option  value="Buy">Buy</option>
                             <option  value="Sell">Sell</option>
                           </select>
                         </td>
-                       
+
                       </tr>
-                      
+
                     </table>
                     <div class="but">
                     <button (click)="onorder()" class="btn">Order</button>
                     </div>
         </form>
-      
+
     </div>
     </div>
 </div>
