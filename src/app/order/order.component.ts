@@ -10,6 +10,7 @@ import { Clients } from '../Clients';
 import { provideRoutes } from '@angular/router';
 import { POrder } from '../POrder';
 
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -18,6 +19,7 @@ import { POrder } from '../POrder';
 export class OrderComponent implements OnInit {
   @ViewChild('f')
   form:any
+
   client:Client=new Client();
   clients:Clients[]=[];
   instruments:Instruments[]=[];
@@ -25,12 +27,17 @@ export class OrderComponent implements OnInit {
   Model:transaction=new transaction("","","","",0,0,0,"");
    c:String="";
    order:POrder=new POrder();
+   log:boolean=true;
   constructor(private clientService:ClientSecurityService) {
-
+   this.log=true;
 
    }
 
   ngOnInit(): void {
+    
+    this.oncl();
+    
+  
   }
   getInstrument(id:any){
     this.clientService.getInstrument(id).subscribe(response=>{
@@ -44,15 +51,23 @@ export class OrderComponent implements OnInit {
 
   })}
   getClients(token:String){
-    this.clientService.getAllClients(token).subscribe(respons=>
-      {
-       this.clients=respons.map((item:any)=>{
-         console.log(this.clients)
-         return new Clients(item.id,item.name);
-       });
-      }
+    this.clientService.getAllClients(token).subscribe((respons:any)=>
+    {
+      console.log(respons)
+      if (respons) {
+        this.hideloader();
+    }
+     this.clientService.clients=respons.map((item:any)=>{
 
-    )
+       return new Clients(item.id,item.name);
+     });
+     console.log(this.clientService.clients)
+    }
+
+  )
+  }
+  hideloader(){
+     
   }
 
   getInstuments(){
@@ -72,8 +87,10 @@ export class OrderComponent implements OnInit {
 
   }
   oncl(){
+    if(this.clientService.clients){
     this.clients=this.clientService.clients;
     this.getInstuments();
+    }
   }
   oninputinst(event:any){
    this.getInstrument(event.target.value);

@@ -9,6 +9,7 @@ import { OrderComponent } from './order/order.component';
 
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
    

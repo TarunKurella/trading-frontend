@@ -39,17 +39,7 @@ token:string="";
     this.clientservice.token=token;
     localStorage.setItem('token',token);
     console.log(localStorage.getItem('token'))
-    this.clientservice.getAllClients(token).subscribe((respons:any)=>
-      {
-        console.log(respons)
-       this.clientservice.clients=respons.map((item:any)=>{
-
-         return new Clients(item.id,item.name);
-       });
-       console.log(this.clientservice.clients)
-      }
-
-    )
+    
     resp.subscribe(data=>{this.response=data})
 
   }
@@ -57,8 +47,20 @@ token:string="";
     const authen=new credentials(this.form.value.username,this.form.value.password);
     this.getAccessToken(authen);
     console.log(this.token)
+    this.clientservice.getAllClients(this.clientservice.token).subscribe((respons:any)=>
+    {
+      console.log(respons)
+      if(respons){
+        this.router.navigate(['order'])
+      }
+      
+     this.clientservice.clients=respons.map((item:any)=>{
 
-    this.router.navigate(['order'])
+       return new Clients(item.id,item.name);
+     });
+     console.log(this.clientservice.clients)
+    })
+    
 
 
 
